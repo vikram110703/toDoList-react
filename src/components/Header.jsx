@@ -3,6 +3,10 @@ import React, { useContext } from "react";
 import { toast } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { Context, server } from "../main";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSquareCheck } from '@fortawesome/free-regular-svg-icons';
+
+
 
 const Header = () => {
   const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
@@ -27,8 +31,11 @@ const Header = () => {
 
   return (
     <nav className="header">
-      <div>
+      <div className="toDo-heading">
         <h2>Todo App</h2>
+      </div>
+      <div className="icon">
+      <FontAwesomeIcon icon={faSquareCheck} beat size="xl" color='white'/>
       </div>
       <article>
         <Link to={"/"}>Home</Link>

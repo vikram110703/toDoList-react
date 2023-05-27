@@ -9,8 +9,12 @@
     h2 {
       text-transform: uppercase;
       color: $color2;
+      color:rgba(66, 237, 220, 0.945);
       font-weight: 400;
     }
+  }
+  .icon{
+    display: none;
   }
 
   > article {

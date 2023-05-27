@@ -19,30 +19,32 @@
     .icon{
       display: inline;
     position: relative;
-    margin-left: 2px;
-     left:17px;
+    // margin-left: 2px;
+     left:15px;
       
     }
 
 
     >article {
       // background-color: red;
+      position:relative;
       display: flex;
       flex-direction: row;
       align-items: end;
       // text-align: center;
       justify-content: space-around;
-      padding: 0.5rem 0.2rem;
+      padding: 0.5rem 0.5rem;
       width: 100%;
+      right:-3px;
 
       >a {
-        padding: 0.1rem 0.5rem;
+        padding: 0.1rem 0.3rem;
         margin: 0.5rem;
         font-size: medium;
       }
 
       >button {
-        padding: 0.5rem 0.5rem;
+        padding: 0.1rem 0.3rem;
         margin: 0.5rem;
         font-size: medium;
       }

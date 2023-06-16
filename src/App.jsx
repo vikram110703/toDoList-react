@@ -10,6 +10,7 @@ import axios from "axios";
 import { Context, server } from "./main";
 
 
+
 function App() {
   const { setUser, setIsAuthenticated, setLoading } = useContext(Context);
 

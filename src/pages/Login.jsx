@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, Navigate } from "react-router-dom";
 import { Context, server } from "../main";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
@@ -29,16 +30,26 @@ const Login = () => {
         }
       );
 
-      toast.success(data.message);
-      setIsAuthenticated(true);
-      setLoading(false);
+      setTimeout(() => {
+        toast.success(data.message);
+        setIsAuthenticated(true);
+        setLoading(false);
+        setPassword("");
+      }, 1000); // Delay of 1 second
+
     } catch (error) {
-      toast.error(error.response.data.message);
-      setLoading(false);
-      setIsAuthenticated(false);
+      setTimeout(() => {
+        toast.error(error.response.data.message);
+        setLoading(false);
+        setPassword("");
+        setIsAuthenticated(false);
+      }, 1000);
+
     }
   };
 
+
+  if (loading) return <Loader />;
   if (isAuthenticated) return <Navigate to={"/"} />;
 
   return (
@@ -50,7 +61,8 @@ const Login = () => {
             placeholder="Email"
             required
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)
+            }
           />
           <input
             type="password"

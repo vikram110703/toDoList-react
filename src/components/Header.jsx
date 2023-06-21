@@ -12,18 +12,22 @@ const Header = () => {
 
   const logoutHandler = async () => {
     setLoading(true);
+
     try {
       await axios.get(`${server}/users/logout`, {
         withCredentials: true,
       });
-
-      toast.success("Logged Out Successfully");
-      setIsAuthenticated(false);
-      setLoading(false);
+      setTimeout(() => {
+        toast.success("Logged Out Successfully");
+        setIsAuthenticated(false);
+        setLoading(false);
+      }, 100);
     } catch (error) {
-      toast.error(error.response.data.message);
-      setIsAuthenticated(true);
-      setLoading(false);
+      setTimeout(() => {
+        toast.error(error.response.data.message);
+        setIsAuthenticated(true);
+        setLoading(false);
+      }, 100);
     }
   };
 
@@ -33,7 +37,7 @@ const Header = () => {
         <h2>Todo App</h2>
       </div>
       <div className="icon">
-      <FontAwesomeIcon icon={faSquareCheck} beat size="xl" color='white'/>
+        <FontAwesomeIcon icon={faSquareCheck} beat size="xl" color='white' />
       </div>
       <article>
         <Link to={"/"}>Home</Link>

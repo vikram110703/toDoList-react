@@ -3,13 +3,13 @@ import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { Context, server } from "../main";
 import toast from "react-hot-toast";
+import Loader from "../components/Loader";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
-    useContext(Context);
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } = useContext(Context);
 
   const submitHandler = async (e) => {
     setLoading(true);
@@ -30,17 +30,30 @@ const Register = () => {
         }
       );
 
-      toast.success(data.message);
-      setIsAuthenticated(true);
-      setLoading(false);
+      setTimeout(() => {
+        toast.success(data.message);
+        setIsAuthenticated(false);
+        setLoading(false);
+        setEmail("");
+        setPassword("");
+      }, 1000); // Delay of 1 second
+
     } catch (error) {
-      toast.error(error.response.data.message);
-      setIsAuthenticated(false);
-      setLoading(false);
+      setTimeout(() => {
+        toast.error(error.response.data.message);
+        setIsAuthenticated(false);
+        setLoading(false);
+        setPassword("");
+      }, 1000); // Delay of 1 second
+    
     }
   };
+  if(loading)return<Loader/>;
 
-  if (isAuthenticated) return <Navigate to={"/"} />;
+  /* yha se me direct login nahi karna chahta that's why i comment out this (below) */ 
+
+  // if (isAuthenticated) return <Navigate to={"/"} />;
+
 
   return (
     <div className="login">

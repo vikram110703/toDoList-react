@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Context } from "../main";
 
 const TodoItem = ({
   title,
@@ -8,6 +9,7 @@ const TodoItem = ({
   deleteHandler,
   id,
 }) => {
+  const { loading } = useContext(Context);
   return (
     <div className="todo">
       <div className="todo_task">
@@ -17,6 +19,7 @@ const TodoItem = ({
       <div className="todo_delete">
         <input
           onChange={() => updateHandler(id)}
+          disabled={loading}
           type="checkbox"
           checked={isCompleted}
         />

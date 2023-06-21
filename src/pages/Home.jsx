@@ -4,6 +4,7 @@ import { Context, server } from "../main";
 import { toast } from "react-hot-toast";
 import TodoItem from "../components/TodoItem";
 import { Navigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -11,8 +12,8 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [refresh, setRefresh] = useState(false);
-
   const { isAuthenticated } = useContext(Context);
+
 
   const updateHandler = async (id) => {
     try {
@@ -23,23 +24,32 @@ const Home = () => {
           withCredentials: true,
         }
       );
-
       toast.success(data.message);
       setRefresh((prev) => !prev);
+
     } catch (error) {
       toast.error(error.response.data.message);
     }
   };
   const deleteHandler = async (id) => {
     try {
+      setLoading(true);
       const { data } = await axios.delete(`${server}/task/${id}`, {
         withCredentials: true,
       });
+      //TimeOut
+      setTimeout(() => {
+        setLoading(false);
+        toast.success(data.message);
+        setRefresh((prev) => !prev);
+      }, 100);
 
-      toast.success(data.message);
-      setRefresh((prev) => !prev);
     } catch (error) {
-      toast.error(error.response.data.message);
+      setTimeout(() => {
+        setLoading(false);
+        toast.error(error.response.data.message);
+      })
+
     }
   };
 
@@ -60,15 +70,21 @@ const Home = () => {
           },
         }
       );
+      //TimeOut
+      setTimeout(() => {
+        setLoading(false);
+        setTitle("");
+        setDescription("");
+        toast.success(data.message);
+        setRefresh((prev) => !prev);
+      }, 500);
 
-      setTitle("");
-      setDescription("");
-      toast.success(data.message);
-      setLoading(false);
-      setRefresh((prev) => !prev);
     } catch (error) {
-      toast.error(error.response.data.message);
-      setLoading(false);
+      setTimeout(() => {
+        setLoading(false);
+        toast.error(error.response.data.message);
+      }, 200);
+
     }
   };
 
@@ -108,12 +124,11 @@ const Home = () => {
             />
 
             <button disabled={loading} type="submit">
-              Add Task
+              {loading ? <Loader /> : "Add Task"}
             </button>
           </form>
         </section>
       </div>
-
       <section className="todosContainer">
         {tasks.map((i) => (
           <TodoItem

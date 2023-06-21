@@ -16,18 +16,19 @@
     .toDo-heading {
       display: none;
     }
-    .icon{
+
+    .icon {
       display: inline;
-    position: relative;
-    // margin-left: 2px;
-     left:15px;
-      
+      position: relative;
+      // margin-left: 2px;
+      left: 15px;
+
     }
 
 
     >article {
       // background-color: red;
-      position:relative;
+      position: relative;
       display: flex;
       flex-direction: row;
       align-items: end;
@@ -35,7 +36,7 @@
       justify-content: space-around;
       padding: 0.5rem 0.5rem;
       width: 100%;
-      right:-3px;
+      right: -3px;
 
       >a {
         padding: 0.1rem 0.3rem;
@@ -122,6 +123,7 @@
     }
 
   }
+
 
 
 }

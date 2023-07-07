@@ -37,12 +37,12 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/*" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="*" element={<Login />} />
       </Routes>
       <Toaster />
     </Router>

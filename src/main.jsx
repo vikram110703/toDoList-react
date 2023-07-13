@@ -4,8 +4,8 @@ import App from "./App";
 import "./styles/app.scss";
 import { createContext } from "react";
 
-// export const server = "https://todo-app-backend-tfc5.onrender.com/api/v1";
-export const server = "http://localhost:5000/api/v1";
+export const server = "https://todo-app-backend-tfc5.onrender.com/api/v1";
+// export const server = "http://localhost:5000/api/v1";
 // 
 
 

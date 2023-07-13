@@ -47,6 +47,7 @@ $shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 
 @mixin container($maxW: 1200px, $h: 100vh, $p: 5vmax, $m: auto) {
   margin: $m;
+  margin-top: 10px;
   max-width: $maxW;
   width: 100%;
   height: $h;

@@ -8,7 +8,8 @@ import Verify from "./pages/Verify";
 import { Toaster } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import axios from "axios";
-import { Context,server} from "./main";
+import { Context, server } from "./main";
+import { faArrowDownShortWide } from "@fortawesome/free-solid-svg-icons";
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
         setUser(res.data.user);
         setIsAuthenticated(true);
         setLoading(false);
-      }) 
+      })
       .catch((error) => {
         setUser({});
         setIsAuthenticated(false);
@@ -33,20 +34,31 @@ function App() {
   }, []);
 
   return (
-   
-    <Router>
+
+    <Router basename="/" >
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="*" element={<Login />} />
+        {/* <Route path="*" element={<Login />} /> */}
       </Routes>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          className: '',
+          style: {
+            // border: '1px solid ',
+            padding: '10px',
+            // color: '#713200',
+            marginTop:'-2px'
+          },
+        }}
+
+      />
     </Router>
-    
+
   );
 }
 

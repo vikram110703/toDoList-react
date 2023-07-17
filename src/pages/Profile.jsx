@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../main";
-import Loader from "../components/Loader";
 import userIcon from "../assets/userIcon.svg";
+import Loader_profile from "../components/Loader_profile";
 
 const Profile = () => {
   const { isAuthenticated, loading, setLoading, user } = useContext(Context);
@@ -11,10 +11,10 @@ const Profile = () => {
 
   setTimeout(() => {
     setLoading(false);
-  }, 100);
+  }, 300);
 
 
-  if (loading) return <Loader />;
+  if (loading) return <Loader_profile />;
   if (isAuthenticated) {
     return (
       <div className="profile">

@@ -43,7 +43,7 @@ const Login = () => {
         setPassword("");
         toast.success(data.message);
         setLoading(false);
-      }, 500); // Delay of 0.5 second 
+      }, 300); // Delay of 0.5 second 
 
     } catch (error) {
       setTimeout(() => {
@@ -51,7 +51,7 @@ const Login = () => {
         setPassword("");
         toast.error(error.response.data.message);
         setLoading(false);
-      }, 500);
+      }, 300);
 
     }
   };

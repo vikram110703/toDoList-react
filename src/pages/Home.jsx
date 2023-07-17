@@ -66,19 +66,15 @@ const Home = () => {
         }
       );
       //TimeOut
-      setTimeout(() => {
-        setTitle("");
-        setDescription("");
-        setRefresh((prev) => !prev);
-        toast.success(data.message);
-        setLoading(false);
-      }, 400);
+      setTitle("");
+      setDescription("");
+      setRefresh((prev) => !prev);
+      setLoading(false);
+      toast.success(data.message);
 
     } catch (error) {
-      setTimeout(() => {
-        toast.error(error.response.data.message);
-        setLoading(false);
-      }, 200);
+      setLoading(false);
+      toast.error(error.response.data.message);
 
     }
   };

@@ -9,7 +9,6 @@ import { Toaster } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import { Context, server } from "./main";
-import { faArrowDownShortWide } from "@fortawesome/free-solid-svg-icons";
 
 
 function App() {
@@ -35,7 +34,7 @@ function App() {
 
   return (
 
-    <Router  >
+    <Router >
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -43,7 +42,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/Register" element={<Register />} />
-        {/* <Route path="*" element={<Login />} /> */}
+        <Route path="/*" element={<Login />} />
       </Routes>
       <Toaster
         toastOptions={{
@@ -52,7 +51,7 @@ function App() {
             // border: '1px solid ',
             padding: '10px',
             // color: '#713200',
-            marginTop:'-2px'
+            marginTop: '-2px'
           },
         }}
 

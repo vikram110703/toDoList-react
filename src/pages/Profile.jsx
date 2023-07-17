@@ -11,7 +11,7 @@ const Profile = () => {
 
   setTimeout(() => {
     setLoading(false);
-  }, 400);
+  }, 100);
 
 
   if (loading) return <Loader />;

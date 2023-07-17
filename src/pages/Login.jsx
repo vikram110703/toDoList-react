@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { Link, Navigate } from "react-router-dom";
 import { Context, server } from "../main";
@@ -13,8 +13,10 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [showEmailInput, setShowEmailInput] = useState(false);
+  const [showConfirmationForm, setShowConfirmationForm] = useState(false);
+  const [blurBackground, setBlurBackground] = useState(false);
+  const [newEmail, setNewEmail] = useState("");
+
 
 
   const submitHandler = async (e) => {
@@ -37,78 +39,75 @@ const Login = () => {
       );
 
       setTimeout(() => {
-        toast.success(data.message);
         setIsAuthenticated(true);
-        setLoading(false);
         setPassword("");
-      }, 1000); // Delay of 1 second 
+        toast.success(data.message);
+        setLoading(false);
+      }, 500); // Delay of 0.5 second 
 
     } catch (error) {
       setTimeout(() => {
+        setIsAuthenticated(false);
+        setPassword("");
         toast.error(error.response.data.message);
         setLoading(false);
-        setPassword("");
-        setIsAuthenticated(false);
-      }, 1000);
+      }, 500);
 
     }
   };
 
-  const handleResend = async () => {
-    const isRegistered = true;
+  const openConfirmationForm = () => {
+    setShowConfirmationForm(true);
+    setBlurBackground(true);
+  };
+
+  const closeConfirmationForm = () => {
+    setShowConfirmationForm(false);
+    setBlurBackground(false);
+  };
+
+  //.................................. handle resend comfirmaion Email.............................................
+  const handleConfirmationSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    // console.log("Email:", newEmail);
+    setNewEmail(e.target.value);
+
     try {
-      // Perform the necessary API call or functionality to check if the email is registered
 
-      // Assuming the email is registered for demonstration purposes
-
-      if (isRegistered) {
-        // Perform the redirect to the verify page here
-        // Example using React Router:
-        // <Navigate to="/verify" />
-        toast.success("Email is already registered. Redirecting to verify page.");
-        
-      } else {
-        toast.error("Email is not registered.");
-      }
-    } catch (error) {
-      toast.error(error.response.data.message);
+      const { data } = await axios.post(
+        `${server}/users/resendConfirmationEmail`,
+        {
+          newEmail,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      setTimeout(() => {
+        toast.success(data.message);
+        setIsAuthenticated(false);
+        setLoading(false);
+      }, 200);
     }
-    setShowEmailInput(false);
-   
-  };
-
-  const renderResendEmail = () => {
-    if (!showEmailInput) {
-      setShowEmailInput(true);
-      console.log("input",showEmailInput);
-      return (
-        <button className="resendEmail" onClick={() => setShowEmailInput(true)}>
-          changed
-        </button>
-      );
-      
-    } else {
-      return (
-        <div className="emailInputContainer">
-          <input
-            type="email"
-            placeholder="example@gmail.com"
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-          />
-          <button onClick={handleResend}>Resend</button>
-        </div>
-      );
+    catch (error) {
+      setTimeout(() => {
+        toast.error(error.response.data.message);
+        setIsAuthenticated(false);
+        setLoading(false);
+      }, 200);
     }
   };
-
 
 
   if (loading) return <Loader />;
   if (isAuthenticated) return <Navigate to={"/"} />;
   return (
-    <div className="login">
-      <section>
+    <div className={`login`}>
+      <section className={blurBackground ? "blur" : ""}>
         <form onSubmit={submitHandler}>
           <input
             type="email"
@@ -132,9 +131,30 @@ const Login = () => {
           <Link to="/register">Sign Up</Link>
         </form>
         <div className="resendBtn-Container">
-          <button className="resendEmail" onClick={renderResendEmail} >Resend Confirmation</button>
+          <button className="resendEmail" onClick={openConfirmationForm} >Resend Confirmation</button>
         </div>
       </section>
+      {showConfirmationForm && (
+        <div className="confirmation-form-container">
+          <form className="confirmation-form" onSubmit={handleConfirmationSubmit}>
+            <h2>Resend Confirmation Email</h2>
+            <input
+              type="email"
+              placeholder="Enter Email"
+              value={newEmail}
+              onChange={(e) => setNewEmail(e.target.value)}
+              required={true}
+            />
+            <div className="confirmation-form-buttons">
+              <button className="sub" type="submit">Submit</button>
+              <button className="cancel" type="button" onClick={closeConfirmationForm}>
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
     </div>
   );
 };

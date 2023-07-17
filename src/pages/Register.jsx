@@ -36,7 +36,7 @@ const Register = () => {
         setLoading(false);
         setEmail("");
         setPassword("");
-      }, 1000); // Delay of 1 second
+      }, 500); // Delay of 1 second
 
     } catch (error) {
       setTimeout(() => {
@@ -44,7 +44,7 @@ const Register = () => {
         setIsAuthenticated(false);
         setLoading(false);
         setPassword("");
-      }, 1000); // Delay of 1 second
+      }, 500); // Delay of 1 second
     
     }
   };

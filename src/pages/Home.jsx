@@ -37,19 +37,14 @@ const Home = () => {
       const { data } = await axios.delete(`${server}/task/${id}`, {
         withCredentials: true,
       });
-      //TimeOut
-      setTimeout(() => {
-        setLoading(false);
-        toast.success(data.message);
-        setRefresh((prev) => !prev);
-      }, 100);
+
+      setLoading(false);
+      toast.success(data.message);
+      setRefresh((prev) => !prev);
 
     } catch (error) {
-      setTimeout(() => {
-        setLoading(false);
-        toast.error(error.response.data.message);
-      })
-
+      setLoading(false);
+      toast.error(error.response.data.message);
     }
   };
 
@@ -72,17 +67,17 @@ const Home = () => {
       );
       //TimeOut
       setTimeout(() => {
-        setLoading(false);
         setTitle("");
         setDescription("");
-        toast.success(data.message);
         setRefresh((prev) => !prev);
-      }, 500);
+        toast.success(data.message);
+        setLoading(false);
+      }, 400);
 
     } catch (error) {
       setTimeout(() => {
-        setLoading(false);
         toast.error(error.response.data.message);
+        setLoading(false);
       }, 200);
 
     }

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Context, server } from "../main";
 import Loader from "../components/Loader";
@@ -10,7 +10,6 @@ const Verify = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [verificationMessage, setVerificationMessage] = useState("");
-
   useEffect(() => {
     const verifyEmail = async () => {
       try {
@@ -20,17 +19,17 @@ const Verify = () => {
         setIsAuthenticated(true);
         
         useEffect(() => {
-            // Simulate a delay of 1 second before hiding the loader
+            // Simulate a delay of 0.2 second before hiding the loader
             const timer = setTimeout(() => {
               setLoading(false);
-            }, 1000);
+            }, 200);
         
             return () => clearTimeout(timer);
           }, []);
         setLoading(false);
 
         toast.success(response.data.message);
-        navigate("/login"); // Redirect to the login page after successful verification
+        navigate('/') // Redirect to the home page after successful verification
       } catch (error) {
         setVerificationMessage(error.response.data.message);
         setIsAuthenticated(false);
@@ -40,7 +39,7 @@ const Verify = () => {
     };
 
     verifyEmail();
-  }, [id, setIsAuthenticated, setLoading, navigate]);
+  }, [id, setIsAuthenticated, setLoading]);
 
   if (loading) {
     return <Loader />;

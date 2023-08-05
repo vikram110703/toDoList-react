@@ -4,7 +4,7 @@ import { Context, server } from "../main";
 import { toast } from "react-hot-toast";
 import TodoItem from "../components/TodoItem";
 import { Navigate } from "react-router-dom";
-import Loader from "../components/Loader";
+// import Loader from "../components/Loader";
 
 const Home = () => {
   const [title, setTitle] = useState("");
@@ -115,7 +115,7 @@ const Home = () => {
             />
 
             <button disabled={loading} type="submit">
-              {loading ? <Loader /> : "Add Task"}
+              {loading ? "Wait" : "Add Task"}
             </button>
           </form>
         </section>

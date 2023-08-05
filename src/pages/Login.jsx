@@ -8,15 +8,13 @@ import Loader from "../components/Loader";
 
 
 const Login = () => {
-  const { isAuthenticated, setIsAuthenticated, loading, setLoading } =
-    useContext(Context);
+  const { isAuthenticated, setIsAuthenticated, loading, setLoading } = useContext(Context);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showConfirmationForm, setShowConfirmationForm] = useState(false);
   const [blurBackground, setBlurBackground] = useState(false);
   const [newEmail, setNewEmail] = useState("");
-
 
 
   const submitHandler = async (e) => {

@@ -1,17 +1,16 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 
-const Loader_profile = (props) => {
+const Loader_profile = () => {
   return (
     <ContentLoader
       rtl
       speed={2}
-      width={'35%'}
+      width={'40%'}
       height={'40%'}
-      viewBox="0 0 500 300"
+      viewBox="0 0 500 400"
       backgroundColor="#f3f3f3"
       foregroundColor="#d4d3d3"
-      {...props}
     >
       <circle cx="590" cy="244" r="36" />
       <rect x="21" y="100" rx="0" ry="0" width="2" height="8" />

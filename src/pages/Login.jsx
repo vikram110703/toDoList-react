@@ -15,7 +15,7 @@ const Login = () => {
   const [showConfirmationForm, setShowConfirmationForm] = useState(false);
   const [blurBackground, setBlurBackground] = useState(false);
   const [newEmail, setNewEmail] = useState("");
-
+  const [path,setPath]=useState('');
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -54,7 +54,8 @@ const Login = () => {
     }
   };
 
-  const openConfirmationForm = () => {
+  const openConfirmationForm = (newPath) => {
+    setPath(newPath);
     setShowConfirmationForm(true);
     setBlurBackground(true);
   };
@@ -74,7 +75,7 @@ const Login = () => {
     try {
 
       const { data } = await axios.post(
-        `${server}/users/resendConfirmationEmail`,
+        `${server}/users/${path}`,
         {
           newEmail,
         },
@@ -129,13 +130,17 @@ const Login = () => {
           <Link to="/register">Sign Up</Link>
         </form>
         <div className="resendBtn-Container">
-          <button className="resendEmail" onClick={openConfirmationForm} >Resend Confirmation</button>
+          <button className="resendEmail" onClick={()=>openConfirmationForm('resendConfirmationEmail')} >Resend Confirmation</button>
+          <button className="forgotPassword" onClick={()=>openConfirmationForm('forgotPassword')} >Forgot Password </button>
         </div>
       </section>
       {showConfirmationForm && (
         <div className="confirmation-form-container">
           <form className="confirmation-form" onSubmit={handleConfirmationSubmit}>
-            <h2>Resend Confirmation Email</h2>
+           {path==='resendConfirmationEmail'?<h2> Resend Confirmation Email</h2>
+           :<h2>Reset Password </h2>
+           }
+            
             <input
               type="email"
               placeholder="Enter Email"

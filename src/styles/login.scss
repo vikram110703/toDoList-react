@@ -37,7 +37,7 @@
       align-items: flex-end;
       justify-content: center;
 
-      .resendEmail {
+      .resendEmail ,.forgotPassword{
         width: fit-content;
         padding: 5px;
         background-color: $color2;

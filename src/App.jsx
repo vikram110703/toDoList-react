@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import { useContext, useEffect } from "react";
 import axios from "axios";
 import { Context, server } from "./main";
+import ResetPassword from "./pages/ResetPassword";
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/verify" element={<Verify />} />
         <Route path="/Register" element={<Register />} />
+        <Route path="/resetpassword/:token" element={<ResetPassword />} />
         <Route path="/*" element={<Login />} />
       </Routes>
       <Toaster
